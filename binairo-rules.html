@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Binairo (Takuzu) rules and how to solve it, with a worked 4x4 example</title>
+<meta name="description" content="The rules of Binairo, also called Takuzu, and the three deductions that solve most grids: pairs, sandwiches and counting. A 4x4 puzzle is solved step by step.">
+<link rel="canonical" href="https://ibrahimbilgic.github.io/pondoku-legal/binairo-rules.html">
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="style.css">
+<style>
+.g{border-collapse:collapse;margin:.4rem 0 1.2rem;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.g td{width:2.5rem;height:2.5rem;text-align:center;border:1px solid var(--rule);background:var(--surface);color:var(--ink);font-weight:700;font-size:1.05rem}
+.g td.e{color:var(--ink-mute);font-weight:400}
+.g td.new{background:var(--accent-bg);color:var(--accent)}
+.g td.bad{background:var(--warn-bg);color:var(--warn-ink)}
+.pair{display:flex;flex-wrap:wrap;gap:1.5rem}
+.pair figure{margin:0}
+.pair figcaption{font:.82rem -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--ink-mute);max-width:12rem}
+.ladder{counter-reset:l;list-style:none;padding:0}
+.ladder li{counter-increment:l;border-left:3px solid var(--accent);padding:.2rem 0 .2rem 1rem;margin:0 0 1.2rem}
+.ladder li::before{content:"Technique " counter(l);display:block;font:600 .75rem -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.note{background:var(--accent-bg);border-radius:8px;padding:.9rem 1.1rem;margin:0 0 1.2rem}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What are the rules of Binairo (Takuzu)?","acceptedAnswer":{"@type":"Answer","text":"Fill every cell of the grid with one of two symbols. Each row and each column must contain the same number of each symbol, and no row or column may have three of the same symbol in a row. In the classic game, no two rows may be identical and no two columns may be identical."}},
+{"@type":"Question","name":"How do you solve Binairo without guessing?","acceptedAnswer":{"@type":"Answer","text":"Use three deductions. When two identical symbols sit side by side, both ends of the pair must be the other symbol. When the same symbol sits on both sides of a gap, the gap must be the other symbol. When a row or column already holds half of the cells in one symbol, every empty cell in it must be the other symbol."}},
+{"@type":"Question","name":"Is Binairo the same as Takuzu?","acceptedAnswer":{"@type":"Answer","text":"Yes. Binairo and Takuzu are two names for the same binary logic puzzle, also seen as Tic-Tac-Logic or Binary Puzzle."}}
+]}
+</script>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <a class="brand" href="index.html"><img src="icon.png" alt="">Pon<span>doku</span></a>
+    <nav class="chrome">
+      <a href="binairo-rules.html" aria-current="page">Binairo guide</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<h1>Binairo (Takuzu): the rules, and how to solve it without guessing</h1>
+<p class="updated">Guide written 4 October 2026</p>
+
+<p>Binairo is a grid puzzle with two symbols and no arithmetic. You are never asked to guess: every well-made grid can be
+finished by logic alone. If you are new to it, the rules take a minute and the first technique takes another.</p>
+
+<h2>The rules</h2>
+<p>Fill every empty cell with one of two symbols. Below, they are <strong>X</strong> and <strong>O</strong>; in a printed
+puzzle they are usually black and white. Then check three things.</p>
+<ol>
+  <li><strong>Balance.</strong> Every row and every column holds the same number of each symbol. On a 6&times;6 grid,
+  that is three X and three O in every line.</li>
+  <li><strong>No three in a row.</strong> You may not place three of the same symbol side by side, across or down.</li>
+  <li><strong>No twins</strong> (classic Binairo only). No two rows may be identical, and no two columns.</li>
+</ol>
+<p>Binairo and Takuzu are two names for the same puzzle. Grids are always an even size: 4, 6, 8, 10 and up.</p>
+
+<div class="pair">
+  <figure>
+    <table class="g"><tr><td>X</td><td>O</td><td>O</td><td>X</td></tr></table>
+    <figcaption>Fine: two of each, and never three together.</figcaption>
+  </figure>
+  <figure>
+    <table class="g"><tr><td class="bad">X</td><td class="bad">X</td><td class="bad">X</td><td>O</td></tr></table>
+    <figcaption>Broken: three X in a row. It is also unbalanced.</figcaption>
+  </figure>
+</div>
+
+<h2>Three deductions that do almost all the work</h2>
+<ul class="ladder">
+  <li><strong>Pairs.</strong> Two identical symbols side by side force the cells at both ends to be the opposite symbol,
+  because a third would break rule 2.
+  <table class="g"><tr><td class="new">O</td><td>X</td><td>X</td><td class="new">O</td></tr></table>
+  Start every puzzle by scanning for pairs. Along an edge, only one end exists, and it is forced too.</li>
+
+  <li><strong>Sandwiches.</strong> The same symbol on both sides of an empty cell forces the opposite in the middle. Put an
+  X there and you would have three X.
+  <table class="g"><tr><td>O</td><td class="new">X</td><td>O</td><td class="e">.</td></tr></table>
+  This is the same idea as a pair, with the gap in the middle. Look for it in every line.</li>
+
+  <li><strong>Counting.</strong> Once a row or column holds its full share of one symbol (half the cells), every empty cell
+  left in it takes the other symbol.
+  <table class="g"><tr><td>X</td><td>X</td><td class="new">O</td><td class="new">O</td></tr></table>
+  On a 4-wide line, two X means the rest must be O. Count again whenever you place something, because a line you ignored
+  five minutes ago may now be one move from done.</li>
+</ul>
+
+<div class="note"><strong>The habit that makes this fast:</strong> after each placement, re-check the row <em>and</em> the
+column that cell sits in, using the three techniques in order. A single new symbol usually unlocks the next one.</div>
+
+<h2>A 4&times;4 puzzle, solved step by step</h2>
+<p>Here is a complete puzzle with four givens. Every move below is forced.</p>
+<table class="g">
+  <tr><td>X</td><td class="e">.</td><td class="e">.</td><td class="e">.</td></tr>
+  <tr><td class="e">.</td><td class="e">.</td><td class="e">.</td><td>O</td></tr>
+  <tr><td>X</td><td>X</td><td class="e">.</td><td class="e">.</td></tr>
+  <tr><td class="e">.</td><td class="e">.</td><td class="e">.</td><td class="e">.</td></tr>
+</table>
+<ol>
+  <li><strong>Pair.</strong> Row 3 starts X X, so the cell after the pair must be O.</li>
+  <li><strong>Counting.</strong> Row 3 now has two X and one O, so its last cell is also O.</li>
+  <li><strong>Sandwich.</strong> Column 1 reads X, empty, X: the empty cell (row 2) must be O.</li>
+  <li><strong>Counting.</strong> Row 2 has two O (its first and last cells), so its two middle cells are X.</li>
+  <li>The rest follows the same way. The first column then holds X, O, X and needs one more O at the bottom, and
+  the remaining cells fall out of counting and pairs.</li>
+</ol>
+<p>The finished grid:</p>
+<table class="g">
+  <tr><td>X</td><td class="new">O</td><td class="new">O</td><td class="new">X</td></tr>
+  <tr><td class="new">O</td><td class="new">X</td><td class="new">X</td><td>O</td></tr>
+  <tr><td>X</td><td>X</td><td class="new">O</td><td class="new">O</td></tr>
+  <tr><td class="new">O</td><td class="new">O</td><td class="new">X</td><td class="new">X</td></tr>
+</table>
+<p>Check it against the rules: two X and two O in every row and column, no three together, and all four rows differ.</p>
+
+<h2>When a puzzle seems stuck</h2>
+<ul>
+  <li><strong>Look at every line again, columns included.</strong> The usual cause of "no moves" is a column you stopped reading.</li>
+  <li><strong>Think in what would break.</strong> If an X in a cell would make three in a row <em>or</em> exceed the
+  half-count, the cell is an O. Test both symbols and see which one fails.</li>
+  <li><strong>On big grids, finish the nearly full lines first.</strong> A line with one empty cell is a gift: its symbol is
+  decided by the count.</li>
+  <li><strong>Twins help late.</strong> If a row has two cells left and another row already matches the rest, the twin rule
+  tells you which way round they go.</li>
+</ul>
+
+<h2>Pondoku: a version with bridges</h2>
+<p>Pondoku is a Binairo-style game for phones, and it is a variant rather than the classic. It keeps the first two rules (equal
+counts, no three in a row) and swaps the third for little <code>=</code> and <code>&times;</code> signs between neighbouring
+cells: <code>=</code> means the two cells match, <code>&times;</code> means they differ. The symbols are a cross and a creature
+(a frog, cat, owl or bee skin). Boards are 4&times;4 to 10&times;10, and it has a daily puzzle. Its hint button only shows a
+move the rules force, so it will never ask you to guess. It is free with ads, with a one-time purchase to remove them, and it
+is on
+<a href="https://play.google.com/store/apps/details?id=com.appfellas.pondoku&amp;referrer=utm_source%3Dweb%26utm_medium%3Drules_page%26utm_campaign%3Dorganic">Google Play</a>.</p>
+</main>
+
+<footer>
+  <p>Pondoku &middot; AppFellas &middot; <a href="support.html">Support</a> &middot; <a href="privacy.html">Privacy</a></p>
+</footer>
+</body>
+</html>
